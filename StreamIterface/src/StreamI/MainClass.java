@@ -1,9 +1,11 @@
 package StreamI;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
+import java.util.Optional;import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 
 
@@ -22,16 +24,16 @@ public class MainClass {
 		
 		
 		//printing using stream and foreach
-		students.stream().forEach(s -> System.out.println(s));
+		/*students.stream().forEach(s -> System.out.println(s));*/
 		
 		
 		//using lambda expression
-		Optional<Student> s = students.stream().min((s1,s2) -> s1.getMarks()-s2.getMarks());
-		System.out.println(s.get());
+		/*Optional<Student> s = students.stream().min((s1,s2) -> s1.getMarks()-s2.getMarks());
+		System.out.println(s.get());*/
 		
 		
 		//using annonymous class
-		Optional<Student> opt = students.stream().max(new Comparator<Student>() {
+		/*Optional<Student> opt = students.stream().max(new Comparator<Student>() {
 
 			@Override
 			public int compare(Student o1, Student o2) {
@@ -40,10 +42,29 @@ public class MainClass {
 			}
 			
 		});
-		System.out.println(opt.get());
+		System.out.println(opt.get());*/
 		
-		boolean b = students.stream().anyMatch(st -> st.getMarks() > 960);
-		System.out.println(b);
+		/*boolean b = students.stream().anyMatch(st -> st.getMarks() > 960);
+		System.out.println(b);*/
+		
+		
+		//filtering using stream api
+		List<Student> studentList = students.stream().filter(st1 -> st1.getMarks() > 800).collect(Collectors.toList());
+		System.out.println(studentList);
+		
+		
+		//map() methodusing stream API
+		List<Integer> mappedStudents = students.stream().map(s ->{
+			return s.getMarks()+50;
+		}).collect(Collectors.toList());
+		
+		List<Student> mappedStudents1 = students.stream().map(s ->{
+			return new Student(s.getName(), s.getRoll(), s.getMarks()+50);
+		}).collect(Collectors.toList());
+		
+		System.out.println(mappedStudents1);
+		
+		
 			
 		
 	}
